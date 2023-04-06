@@ -1,0 +1,19 @@
+{% load static %}
+{% load menu_tags %}
+
+{% for item in menu %}
+    {% if item.children %}
+        <li class="{% if item.is_current %}active{% endif %}">
+            <a href="{% if item.url %}{{ item.url }}{% else %}#{% endif %}">
+                {{ item.name }}
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                {% for child in item.children %}
+                    <li{% if child.url == current_url %} class="active"{% endif %}>
+                        <a href="{% if child.url %}{{ child.url }}{% else %}#{% endif %}">{{ child.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% else %}
